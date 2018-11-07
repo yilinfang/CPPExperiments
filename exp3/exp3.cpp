@@ -34,7 +34,6 @@ int STACK::size() const
     return max;
 }
 
-
 STACK::STACK(const STACK &s) : elems(new int[s.max]), max(s.max)
 {
     int i;
@@ -91,9 +90,9 @@ STACK &STACK ::operator=(const STACK &s)
 {
     if (max < s.max)
     {
-        delete[] *(int **)(&elems);
+        delete[] * (int **)(&elems);
         *(int **)(&elems) = new int[s.max];
-        *(int*)(&max) = s.max;
+        *(int *)(&max) = s.max;
     }
     pos = s.pos;
     for (int i = 0; i < s.pos; i++)
@@ -165,7 +164,7 @@ int main(int argc, char const *argv[])
             printf("A  ");
             i++;
             int n = atoi(argv[i]);
-            STACK* q = new STACK(n);
+            STACK *q = new STACK(n);
             *q = *p;
             delete p;
             p = q;
@@ -177,7 +176,7 @@ int main(int argc, char const *argv[])
         {
             printf("C  ");
             i++;
-            STACK* q = new STACK(*p);
+            STACK *q = new STACK(*p);
             delete p;
             p = q;
             p->print();
@@ -202,7 +201,6 @@ int main(int argc, char const *argv[])
             printf("%d  ", x);
             continue;
         }
-
     }
     delete p;
     return 0;
