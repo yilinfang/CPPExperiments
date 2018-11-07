@@ -11,8 +11,6 @@ class Point
     float Distance();
     float Distance(Point p);
     void Display();
-
-  private:
     float x;
     float y;
 };
