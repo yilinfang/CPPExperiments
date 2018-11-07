@@ -89,10 +89,11 @@ STACK &STACK ::operator>>(int &e)
 
 STACK &STACK ::operator=(const STACK &s)
 {
-    if (max < s.pos)
+    if (max < s.max)
     {
         delete[] *(int **)(&elems);
         *(int **)(&elems) = new int[s.max];
+        *(int*)(&max) = s.max;
     }
     pos = s.pos;
     for (int i = 0; i < s.pos; i++)
@@ -139,7 +140,6 @@ int main(int argc, char const *argv[])
             while (i < argc && argv[i][0] >= '0' && argv[i][0] <= '9')
             {
                 int e = atoi(argv[i]);
-                //push(p, e);
                 *p << e;
                 i++;
             }
@@ -165,6 +165,10 @@ int main(int argc, char const *argv[])
             printf("A  ");
             i++;
             int n = atoi(argv[i]);
+            STACK* q = new STACK(n);
+            *q = *p;
+            delete p;
+            p = q;
             i++;
             p->print();
             continue;
@@ -173,6 +177,9 @@ int main(int argc, char const *argv[])
         {
             printf("C  ");
             i++;
+            STACK* q = new STACK(*p);
+            delete p;
+            p = q;
             p->print();
             continue;
         }

@@ -81,10 +81,11 @@ STACK& STACK::pop(int &e)
 
 STACK& STACK::assign(const STACK&s)
 {
-	if (max < s.pos)
+	if (max < s.max)
 	{
 		delete[] *(int **)(&elems);
         *(int **)(&elems) = new int[s.max];
+        *(int*)(&max) = s.max;
 	}
 	pos = s.pos;
 	for (int i = 0; i<s.pos; i++)
@@ -156,6 +157,10 @@ int main(int argc, char const *argv[])
             printf("A  ");
             i++;
             int n = atoi(argv[i]);
+            STACK* q = new STACK(n);
+            q->assign(*p);
+            delete p;
+            p = q;
             i++;
             p->print();
             continue;
@@ -164,6 +169,9 @@ int main(int argc, char const *argv[])
         {
             printf("C  ");
             i++;
+            STACK* q= new STACK(*p);
+            delete p;
+            p = q;
             p->print();
             continue;
         }
