@@ -113,92 +113,31 @@ STACK ::~STACK()
     pos = 0;
 }
 
-int main(int argc, char const *argv[])
+class QUEUE : public STACK
 {
-    STACK *p = NULL;
-    int i = 1;
-    while (i < argc)
-    {
-        if (strcmp(argv[i], "-S") == 0)
-        {
-            printf("S  ");
-            i++;
-            int n = atoi(argv[i]);
-            p = new STACK(n);
-            i++;
-            printf("%d  ", n);
-            continue;
-        }
-        if (strcmp(argv[i], "-I") == 0)
-        {
-            printf("I  ");
-            i++;
-            while (i < argc && argv[i][0] >= '0' && argv[i][0] <= '9')
-            {
-                int e = atoi(argv[i]);
-                *p << e;
-                i++;
-            }
-            p->print();
-            continue;
-        }
-        if (strcmp(argv[i], "-O") == 0)
-        {
-            printf("O  ");
-            i++;
-            int n = atoi(argv[i]);
-            i++;
-            int e;
-            for (int j = 0; j < n; j++)
-            {
-                *p >> e;
-            }
-            p->print();
-            continue;
-        }
-        if (strcmp(argv[i], "-A") == 0)
-        {
-            printf("A  ");
-            i++;
-            int n = atoi(argv[i]);
-            STACK *q = new STACK(n);
-            *q = *p;
-            delete p;
-            p = q;
-            i++;
-            p->print();
-            continue;
-        }
-        if (strcmp(argv[i], "-C") == 0)
-        {
-            printf("C  ");
-            i++;
-            STACK *q = new STACK(*p);
-            delete p;
-            p = q;
-            p->print();
-            continue;
-        }
-        if (strcmp(argv[i], "-G") == 0)
-        {
-            printf("G  ");
-            i++;
-            int n = atoi(argv[i]);
-            i++;
-            int x = (*p)[n];
-            printf("%d  ", x);
-            continue;
-        }
+    STACK s2;
 
-        if (strcmp(argv[i], "-N") == 0)
-        {
-            printf("N  ");
-            i++;
-            int x = int(*p);
-            printf("%d  ", x);
-            continue;
-        }
+  public:
+    QUEUE(int m);                             //每个栈最多m个元素，要求实现的队列最多能入2m个元素
+    QUEUE(const QUEUE &s);                    //用队列s拷贝初始化队列
+    virtual operator int() const;             //返回队列的实际元素个数
+    virtual int full() const;                 //返回队列是否已满，满返回1，否则返回0
+    virtual int operator[](int x) const;      //取下标为x的元素，第1个元素下标为0
+    virtual QUEUE &operator<<(int e);         //将e入队列,并返回队列
+    virtual QUEUE &operator>>(int &e);        //出队列到e,并返回队列
+    virtual QUEUE &operator=(const QUEUE &s); //赋s给队列,并返回被赋值的队列
+    virtual void print() const;               //打印队列
+    virtual ~QUEUE();                         //销毁队列
+};
+
+QUEUE::QUEUE(int m) : STACK(m), s2(m)
+{
+}
+
+QUEUE::QUEUE(const QUEUE &s) : STACK(s.size()), s2(s.size())
+{
+    for(int i = 0; i < (int)s; i++)
+    {
+        *this << s[i];
     }
-    delete p;
-    return 0;
 }
