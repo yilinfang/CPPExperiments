@@ -76,7 +76,7 @@ STACK &STACK::pop(int &e)
         cout << "E  ";
         exit(0);
     }
-    e = elems[pos--];
+    e = elems[--pos];
     return *this;
 }
 

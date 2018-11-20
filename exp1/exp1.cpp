@@ -166,7 +166,7 @@ STACK *const pop(STACK *const p, int &e)
 {
     if(p->pos > 0)
     {
-        e = p->elems[p->pos--];
+        e = p->elems[--p->pos];
         return p;
     }
     printf("E  ");

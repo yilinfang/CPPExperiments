@@ -79,7 +79,7 @@ STACK &STACK ::operator>>(int &e)
         cout << "E  ";
         exit(0);
     }
-    e = elems[pos--];
+    e = elems[--pos];
     return *this;
 }
 
