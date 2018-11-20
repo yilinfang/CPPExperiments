@@ -85,6 +85,10 @@ STACK &STACK ::operator>>(int &e)
 
 STACK &STACK ::operator=(const STACK &s)
 {
+    if(this->elems == s.elems)
+    {
+        return *this;
+    }
     if (max < s.max)
     {
         delete[] * (int **)(&elems);

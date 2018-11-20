@@ -175,6 +175,10 @@ STACK *const pop(STACK *const p, int &e)
 
 STACK *const assign(STACK*const p, const STACK&s)
 {
+    if(p->elems == s.elems)
+    {
+        return p;
+    }
     destroySTACK(p);
     initSTACK(p, s);
     return p;

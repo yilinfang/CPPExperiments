@@ -82,6 +82,10 @@ STACK &STACK::pop(int &e)
 
 STACK &STACK::assign(const STACK &s)
 {
+    if(this->elems == s.elems)
+    {
+        return *this;
+    }
     if (max < s.max)
     {
         delete[] * (int **)(&elems);

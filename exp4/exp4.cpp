@@ -6,18 +6,18 @@ using namespace std;
 class STACK
 {
     int *const elems; //申请内存用于存放栈的元素
-    const int max;    //栈能存放的最大元素个�?
+    const int max;    //栈能存放的最大元素个数
     int pos;          //栈实际已有元素个数，栈空时pos=0;
   public:
-    STACK(int m);                             //初始化栈：最多m个元�?
+    STACK(int m);                             //初始化栈：最多m个元素
     STACK(const STACK &s);                    //用栈s拷贝初始化栈
     virtual int size() const;                 //返回栈的最大元素个数max
     virtual operator int() const;             //返回栈的实际元素个数pos
-    virtual int operator[](int x) const;      //取下标x处的栈元�?
+    virtual int operator[](int x) const;      //取下标x处的栈元素
     virtual STACK &operator<<(int e);         //将e入栈,并返回栈
     virtual STACK &operator>>(int &e);        //出栈到e,并返回栈
-    virtual STACK &operator=(const STACK &s); //赋s给栈,并返回被赋值的�?
-    virtual void print() const;               //打印�?
+    virtual STACK &operator=(const STACK &s); //赋s给栈,并返回被赋值的栈
+    virtual void print() const;               //打印栈
     virtual ~STACK();                         //销毁栈
 };
 
@@ -85,6 +85,10 @@ STACK &STACK ::operator>>(int &e)
 
 STACK &STACK ::operator=(const STACK &s)
 {
+    if (this->elems == s.elems)
+    {
+        return *this;
+    }
     if (max < s.max)
     {
         delete[] * (int **)(&elems);
@@ -118,19 +122,18 @@ class QUEUE : public STACK
     STACK s2;
 
   public:
-    QUEUE(int m);                             //每个栈最多m个元素，要求实现的队列最多能�?2m个元�?
-    QUEUE(const QUEUE &s);                    //用队列s拷贝初始化队�?
-    virtual operator int() const;             //返回队列的实际元素个�?
-    virtual int full() const;                 //返回队列是否已满，满返回1，否则返�?0
-    virtual int operator[](int x) const;      //取下标为x的元素，�?1个元素下标为0
-    virtual QUEUE &operator<<(int e);         //将e入队�?,并返回队�?
-    virtual QUEUE &operator>>(int &e);        //出队列到e,并返回队�?
-    virtual QUEUE &operator=(const QUEUE &s); //赋s给队�?,并返回被赋值的队列
+    QUEUE(int m);                             //每个栈最多m个元素，要求实现的队列最多能入2m个元素
+    QUEUE(const QUEUE &s);                    //用队列s拷贝初始化队列
+    virtual operator int() const;             //返回队列的实际元素个数
+    virtual int full() const;                 //返回队列是否已满，满返回1，否则返回0
+    virtual int operator[](int x) const;      //取下标为x的元素，第1个元素下标为0
+    virtual QUEUE &operator<<(int e);         //将e入队列,并返回队列
+    virtual QUEUE &operator>>(int &e);        //出队列到e,并返回队列
+    virtual QUEUE &operator=(const QUEUE &s); //赋s给队列,并返回被赋值的队列
     virtual void print() const;               //打印队列
-    virtual ~QUEUE();                         //销毁队�?
+    virtual ~QUEUE();                         //销毁队列
 };
 
-//初始化队�?
 QUEUE::QUEUE(int m) : STACK(m), s2(m)
 {
     return;
@@ -261,7 +264,7 @@ QUEUE::~QUEUE()
 
 int main(int argc, char const *argv[])
 {
-    /*命令行测试部�?*/
+    /*命令行测试部�?*/
     QUEUE *p = NULL;
     int i = 1;
     while (i < argc)
@@ -372,13 +375,13 @@ int main(int argc, char const *argv[])
         else
         {
             *mQueue << 0;
-        } 
+        }
     }
     for (int i = 1; i <= F; i++)
     {
         if (i != f)
         {
-           *fQueue << 1; 
+            *fQueue << 1;
         }
         else
         {
@@ -395,7 +398,7 @@ int main(int argc, char const *argv[])
         *fQueue << fOut;
         count++;
     }
-    printf("�?%d男士与第%d女士在第%d支舞相遇！\n", m, f, count);
+    printf("�?%d男士与第%d女士在第%d支舞相遇！\n", m, f, count);
     delete mQueue;
     delete fQueue;
 
